@@ -12,15 +12,13 @@ This project performs Human Activity Recognition using a modified version of the
 - Loaded sensor CSVs for 6 activity classes
 - Plotted time-series waveforms for each axis (`accx`, `accy`, `accz`)
 - Computed and visualized `acc_net = sqrt(x² + y² + z²)`
-- Visualized data separability using PCA on raw signals
+- Visualized data separability using PCA on raw signal features, tsfel features and dataset-provided features
 
 ---
 
 ### Task 2: Decision Tree Modeling
 
-- Extracted 6 statistical features from each CSV:
-  - `mean_x`, `std_x`, `mean_y`, `std_y`, `mean_z`, `std_z`
-- Trained a `DecisionTreeClassifier` on the derived features
+- Trained a `DecisionTreeClassifier` each on raw signal features, tsfel features and dataset-provided features
 - Evaluation included:
   - Accuracy
   - Confusion Matrix
@@ -39,11 +37,7 @@ This project performs Human Activity Recognition using a modified version of the
   - Confusion Matrix
   - Classification Report
 
-> ⚠️ Before running LLM code, set your GROQ API key:
-
-```bash
-export GROQ_API_KEY=your_key_here
-```
+> ⚠️ Before running LLM code, set your GROQ API key
 
 ---
 
@@ -51,15 +45,13 @@ export GROQ_API_KEY=your_key_here
 
 - Real-world data collected per activity class in CSVs
 - Each file contains 3-axis acceleration (`accx`, `accy`, `accz`)
-- Preprocessed to extract same 6 statistical features
-- Used previously trained Decision Tree model to classify real-world samples
+- Used previously trained Decision Tree model(on raw data) to classify real-world samples
 - Labels inferred from folder names
 
 ---
 
 ## Notes
 
-- Data structure under `Combined/Train/` and `Combined/Test/` mimics activity-based UCI-HAR splits
 - PCA used only for visualization, not for model training
 - LLM was tested on UCI-style test samples, not real-world data
 
@@ -67,7 +59,6 @@ export GROQ_API_KEY=your_key_here
 
 ## Dependencies
 
-- Python ≥ 3.8
 - `numpy`, `pandas`, `matplotlib`, `scikit-learn`
 - `langchain`, `groq`
 
@@ -75,4 +66,4 @@ export GROQ_API_KEY=your_key_here
 
 ## Author
 
-Project based on coursework in Human Activity Recognition and AI interpretability.
+- **A.V.S Manoj** (23110025) – [manoj.anaparthi@iitgn.ac.in](mailto:manoj.anaparthi@iitgn.ac.in)
