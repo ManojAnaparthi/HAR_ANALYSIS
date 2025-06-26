@@ -43,7 +43,9 @@ This project performs Human Activity Recognition using a modified version of the
 
 ### Task 4: Real-World Data Collection & Testing
 
-- Real-world data collected per activity class in CSVs
+- We collected raw accelerometer data from four individuals performing various activities, including walking upstairs, walking downstairs, standing, sitting, and laying
+- The data was recorded using the Physics Toolbox Sensor app
+- Real-world data collected per activity class in CSV format
 - Each file contains 3-axis acceleration (`accx`, `accy`, `accz`)
 - Used previously trained Decision Tree model(on raw data) to classify real-world samples
 - Labels inferred from folder names
