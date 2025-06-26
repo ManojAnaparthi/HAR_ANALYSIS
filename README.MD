@@ -1,8 +1,7 @@
+
 # Human Activity Recognition (HAR) Analysis
 
-This project performs Human Activity Recognition using data from the **UCI-HAR dataset** and **real-world accelerometer data**. The workflow involves Exploratory Data Analysis (EDA), Decision Tree modeling, LLM prompt engineering, and real-world testing with custom data.
-
----
+This project performs Human Activity Recognition using a modified version of the UCI-HAR dataset and real-world accelerometer data. It includes traditional modeling (Decision Tree) and prompt-based classification using LLaMA3 via LangChain.
 
 ---
 
@@ -10,55 +9,70 @@ This project performs Human Activity Recognition using data from the **UCI-HAR d
 
 ### Task 1: Exploratory Data Analysis (EDA)
 
-- Loaded and visualized UCI HAR dataset
-- Analyzed activity distribution
-- Plotted sample signals from inertial sensors (X, Y, Z axes)
+- Loaded sensor CSVs for 6 activity classes
+- Plotted time-series waveforms for each axis (`accx`, `accy`, `accz`)
+- Computed and visualized `acc_net = sqrt(x² + y² + z²)`
+- Visualized data separability using PCA on raw signals
 
 ---
 
 ### Task 2: Decision Tree Modeling
 
-- Used `DecisionTreeClassifier` from `scikit-learn`
-- Trained using **6 statistical features**:
+- Extracted 6 statistical features from each CSV:
   - `mean_x`, `std_x`, `mean_y`, `std_y`, `mean_z`, `std_z`
-- Derived from raw inertial signals in UCI dataset
-- Evaluated on UCI test data (with same feature structure)
-- Reported:
+- Trained a `DecisionTreeClassifier` on the derived features
+- Evaluation included:
   - Accuracy
-  - Confusion matrix
-  - Classification report
+  - Confusion Matrix
+  - Classification Report
 
 ---
 
-### Task 3: Prompt Engineering with LLM (LLaMA3 via LangChain)
+### Task 3: Prompt Engineering with LLM (LLaMA3)
 
-- Integrated `langchain_groq` for LLaMA3 LLM
-- Designed prompt-based classification in two modes:
-  - **Zero-Shot:** Direct prediction from test features
-  - **Few-Shot:** Included 3 labeled examples to guide prediction
-- Compared LLM predictions with ground truth
-- Reported:
+- Integrated `langchain_groq` to use LLaMA3 model
+- Two modes implemented:
+  - **Zero-Shot**: Direct test input → activity label
+  - **Few-Shot**: Prompt includes 3 labeled examples before test input
+- Compared predictions against true labels:
   - Accuracy
-  - Classification report
-  - Confusion matrix
+  - Confusion Matrix
+  - Classification Report
+
+> ⚠️ Before running LLM code, set your GROQ API key:
+
+```bash
+export GROQ_API_KEY=your_key_here
+```
 
 ---
 
 ### Task 4: Real-World Data Collection & Testing
 
-#### QN-4.1: Use Decision Tree on Real Data
-
-- Real-world CSVs collected per activity
-- Each CSV file contains 3-axis accelerometer data
-- Applied same statistical featurization (mean/std per axis)
-- Used **Decision Tree model trained on UCI data (6 features)** to predict on real data
-
-#### QN-4.2: Preprocessing and Evaluation
-
-- Extracted:
-  - `mean_x`, `std_x`, `mean_y`, `std_y`, `mean_z`, `std_z` from each CSV
-- Label inferred from folder name
+- Real-world data collected per activity class in CSVs
+- Each file contains 3-axis acceleration (`accx`, `accy`, `accz`)
+- Preprocessed to extract same 6 statistical features
+- Used previously trained Decision Tree model to classify real-world samples
+- Labels inferred from folder names
 
 ---
 
-**Also set your GROQ API key in environment before using LLM**
+## Notes
+
+- Data structure under `Combined/Train/` and `Combined/Test/` mimics activity-based UCI-HAR splits
+- PCA used only for visualization, not for model training
+- LLM was tested on UCI-style test samples, not real-world data
+
+---
+
+## Dependencies
+
+- Python ≥ 3.8
+- `numpy`, `pandas`, `matplotlib`, `scikit-learn`
+- `langchain`, `groq`
+
+---
+
+## Author
+
+Project based on coursework in Human Activity Recognition and AI interpretability.
